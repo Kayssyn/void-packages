@@ -1,6 +1,6 @@
 # Template file for 'go-jira'
 pkgname=go-jira
-version=0.1.2
+version=0.1.7
 revision=1
 build_style=go
 hostmakedepends="git-perl"
@@ -11,7 +11,7 @@ go_import_path="github.com/Netflix-Skunkworks/go-jira"
 go_package="$go_import_path/main"
 homepage="https://$go_import_path"
 distfiles="$homepage/archive/v$version.tar.gz"
-checksum=c7a5228610e7ce881183de7823863df8f05f4e89418fac9d8569f3d7ef58105a
+checksum=82edcfd74b6ef2a187d2ebc3c1f95097db188313212480e40abaf5f4486efbd4
 
 post_install() {
 	mv $DESTDIR/usr/bin/{main,jira}

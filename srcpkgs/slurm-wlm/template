@@ -1,7 +1,7 @@
 # Template file for 'slurm-wlm'
 pkgname=slurm-wlm
-version=16.05.1.1
-revision=1
+version=16.05.5.1
+revision=2
 _distver="${version//./-}"
 wrksrc="slurm-slurm-${_distver}"
 build_style=gnu-configure
@@ -16,9 +16,10 @@ maintainer="Toyam Cox <Vaelatern@gmail.com>"
 license="GPL-2"
 homepage="http://slurm.schedmd.com/slurm.html"
 distfiles="https://github.com/SchedMD/slurm/archive/slurm-${_distver}.tar.gz"
-checksum=cf9d073024ca4cfc9b73e1af52551a6f342330a3cb9559dc1977affbbf22c00d
+checksum=7d3c30c1683fd207dda22f4078e038d110fa5bce133828fbd8e1ae6317f2ad38
 case "${XBPS_TARGET_MACHINE}" in
 	# Undefined: inet_nsap_addr and getgrent_r
+	# Used in the core of the program.
 	*-musl) broken="https://api.travis-ci.org/jobs/124091254/log.txt";;
 esac
 if [ -z "${CROSS_BUILD}" ]; then

@@ -370,7 +370,7 @@ read_pkg() {
         [ ! -r ./template ] && msg_error "missing build template in $(pwd).\n"
         XBPS_TARGET_PKG=$(basename_cwd)
     fi
-    setup_pkg $XBPS_TARGET_PKG $XBPS_CROSS_BUILD
+    setup_pkg "$XBPS_TARGET_PKG" "$XBPS_CROSS_BUILD" "$1"
 }
 
 setup_distfiles_mirror() {
@@ -403,13 +403,21 @@ readonly XBPS_VERSION_REQ="0.46"
 readonly XBPS_VERSION=$(xbps-uhelper -V|awk '{print $2}')
 readonly XBPS_SRC_VERSION="113"
 export XBPS_MACHINE=$(xbps-uhelper arch)
+readonly XBPS_GCC_VERSION_MAJOR=4
+readonly XBPS_GCC_VERSION_MINOR=9
+readonly XBPS_GCC_VERSION_BUILD=4
+readonly XBPS_GCC_VERSION=${XBPS_GCC_VERSION_MAJOR}.${XBPS_GCC_VERSION_MINOR}.${XBPS_GCC_VERSION_BUILD}
 
 #
 # main()
 #
 XBPS_OPTIONS=
+XBPS_OPTSTRING="a:CEfgGhH:Ij:Lm:No:r:tV"
 
-while getopts "a:CEfgGhH:Ij:Lm:No:r:tV" opt; do
+# Preprocess arguments in order to allow options before and after XBPS_TARGET.
+eval set -- $(getopt -- "$XBPS_OPTSTRING" "$@");
+
+while getopts "$XBPS_OPTSTRING" opt; do
     case $opt in
         a) readonly XBPS_CROSS_BUILD="$OPTARG"; XBPS_OPTIONS+=" -a $OPTARG";;
         C) readonly XBPS_KEEP_ALL=1; XBPS_OPTIONS+=" -C";;
@@ -442,7 +450,7 @@ umask 022
 #
 # Required utilities in host system for the bootstrap target.
 readonly REQHOST_UTILS_BOOTSTRAP="make gawk bash bison sed gcc g++ msgfmt makeinfo \
-    perl tar xz gzip bzip2 patch flex"
+    perl tar xz gzip bzip2 patch flex automake libtool pkg-config"
 
 # Required utilities in host system for chroot ops.
 readonly REQHOST_UTILS="xbps-install xbps-query xbps-rindex xbps-uhelper \
@@ -710,7 +718,7 @@ case "$XBPS_TARGET" in
         purge_distfiles
         ;;
     show)
-        read_pkg
+        read_pkg ignore-broken
         show_pkg
         ;;
     show-avail)

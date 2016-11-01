@@ -1,7 +1,7 @@
 # Template file for 'squid'
 pkgname=squid
-version=3.5.19
-revision=1
+version=3.5.21
+revision=2
 build_style=gnu-configure
 configure_args="
  --sbindir=/usr/bin
@@ -63,7 +63,7 @@ maintainer="Toyam Cox <Vaelatern@gmail.com>"
 license="GPL-2"
 homepage="http://www.squid-cache.org/"
 distfiles="ftp://ftp.fu-berlin.de/unix/www/${pkgname}/${pkgname}/${pkgname}-${version}.tar.xz"
-checksum=c4b8a2efb85acc600e506605f175298ce3324048e60f4708926d354fe4b5c7a0
+checksum=6fb537a1e4d746276e60856acd2398f88aab94ebd476ae2cc2bf16af5c7cc251
 
 post_install() {
 	chmod u+s \

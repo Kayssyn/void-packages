@@ -1,7 +1,7 @@
 # Template file for 'postgresql'
 pkgname=postgresql
-version=9.5.3
-revision=1
+version=9.5.4
+revision=4
 build_style=gnu-configure
 make_build_target="world"
 configure_args="--with-openssl --with-python
@@ -14,7 +14,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://www.postgresql.org"
 license="BSD"
 distfiles="ftp://ftp.postgresql.org/pub/source/v${version}/${pkgname}-${version}.tar.bz2"
-checksum=7385c01dc58acba8d7ac4e6ad42782bd7c0b59272862a3a3d5fe378d4503a0b4
+checksum=cf5e571164ad66028ecd7dd8819e3765470d45bcd440d258b686be7e69c76ed0
 
 hostmakedepends="flex docbook docbook2x openjade"
 makedepends="libfl-devel readline-devel libressl-devel perl
@@ -28,6 +28,7 @@ system_accounts="postgres"
 postgres_homedir="/var/lib/${pkgname}"
 postgres_shell="/bin/sh"
 postgres_descr="PostgreSQL database server user"
+make_dirs="/var/lib/postgresql 0750 postgres postgres"
 
 if [ "$CROSS_BUILD" ]; then
 	configure_args+=" --without-perl --without-python --without-tcl"

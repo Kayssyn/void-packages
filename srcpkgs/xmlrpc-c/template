@@ -1,6 +1,6 @@
 # Template file for 'xmlrpc-c'
 pkgname=xmlrpc-c
-version=1.39.08
+version=1.39.11
 revision=1
 build_style=gnu-configure
 configure_args="--enable-libxml2-backend --enable-cplusplus --disable-cgi-server
@@ -12,13 +12,16 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="BSD"
 homepage="http://xmlrpc-c.sourceforge.net/"
 distfiles="${SOURCEFORGE_SITE}/$pkgname/$pkgname-$version.tgz"
-checksum=eedc028443aaa6bcc9261eb97dd4af77a684a4171be3c86ba96ab7b4de569505
+checksum=2e56cdcdd5c5fa564bcdc7a56bca108a88f5b78b34ccc85558366efabdc8b8e8
 
 CFLAGS="-fPIC"
 disable_parallel_build=yes
 
 pre_configure() {
 	sed 's,XMLRPC_ABYSS_EXPORTED,XMLRPC_DLLEXPORT,g' -i include/xmlrpc-c/abyss.h
+	sed -i configure \
+		-e "s;AR=.*;AR=${AR};" \
+		-e "s;RANLIB=.*;RANLIB=${RANLIB};"
 }
 post_configure() {
 	case "$XBPS_TARGET_MACHINE" in

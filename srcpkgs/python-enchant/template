@@ -1,18 +1,33 @@
 # Template file for 'python-enchant'
 pkgname=python-enchant
-version=1.6.6
-revision=1
-_name=pyenchant
-wrksrc=$_name-$version
+version=1.6.8
+revision=2
 noarch=yes
+wrksrc="pyenchant-${version}"
 build_style=python-module
 pycompile_module=enchant
-hostmakedepends="python-setuptools enchant-devel"
-makedepends="enchant-devel"
+hostmakedepends="python-setuptools python3-setuptools enchant-devel"
 depends="enchant"
-short_desc="Spellchecking library for python"
+short_desc="Spellchecking library for Python2"
 maintainer="Andrea Brancaleoni <miwaxe@gmail.com>"
-license="GPL-3"
+license="LGPL-2.1"
 homepage="https://github.com/rfk/pyenchant"
-distfiles="$PYPI_SITE/p/$_name/${_name}-${version}.tar.gz"
-checksum=25c9d2667d512f8fc4410465fdd2e868377ca07eb3d56e2b6e534a86281d64d3
+distfiles="${PYPI_SITE}/p/pyenchant/pyenchant-${version}.tar.gz"
+checksum=7ead2ee74f1a4fc2a7199b3d6012eaaaceea03fbcadcb5df67d2f9d0d51f050a
+
+python3-enchant_package() {
+	noarch=yes
+	pycompile_module="enchant"
+	replaces="python3.4-enchant>=0"
+	depends="enchant"
+	short_desc="${short_desc/Python2/Python3}"
+	pkg_install() {
+		vmove usr/lib/python3*
+	}
+}
+python3.4-enchant_package() {
+	noarch=yes
+	build_style=meta
+	short_desc="${short_desc/Python2/Python3.4} (transitional dummy package)"
+	depends="python3-enchant>=${version}_${revision}"
+}

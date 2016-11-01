@@ -1,6 +1,6 @@
 # Template file for 'bdf2psf'
 pkgname=bdf2psf
-version=1.146
+version=1.152
 revision=1
 wrksrc="console-setup-${version}"
 depends="perl"
@@ -9,7 +9,7 @@ maintainer="Christian Neukirchen <chneukirchen@gmail.com>"
 license="GPL-2"
 homepage="https://packages.debian.org/sid/bdf2psf"
 distfiles="${DEBIAN_SITE}/main/c/console-setup/console-setup_${version}.tar.xz"
-checksum=578ef609fc82b532ac712ac8e8c93bd4a5ff909c3d55268624167e0e0cae39f0
+checksum=db899b32c3cdb0b598dbcad582412cdcd83a3ac5b5d60ddc8a8e7077fd2ca10f
 noarch=yes
 
 post_extract() {
@@ -17,6 +17,11 @@ post_extract() {
 }
 
 do_install() {
-	vbin Fonts/bdf2psf
-	vman man/bdf2psf.1
+	cd Fonts
+	vbin bdf2psf
+	vman ../man/bdf2psf.1
+	for f in *.equivalents *.set; do
+		vinstall $f 0644 usr/share/bdf2psf
+	done
+	vcopy fontsets usr/share/bdf2psf
 }

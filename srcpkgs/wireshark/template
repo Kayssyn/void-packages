@@ -1,14 +1,13 @@
 # Template file for 'wireshark'
 pkgname=wireshark
-reverts="2.1.0_1"
-version=2.0.4
-revision=1
+version=2.2.1
+revision=2
 build_style=gnu-configure
 configure_args="--with-ssl --with-pcap --with-libcap --with-zlib --with-lua
  --with-krb5 --with-gtk3=yes --without-portaudio CC_FOR_BUILD=cc"
-hostmakedepends="pkg-config flex perl python-devel mit-krb5-devel automake libtool"
+hostmakedepends="pkg-config flex perl python-devel mit-krb5-devel automake libtool qt5-tools glib-devel"
 makedepends="libpcap-devel zlib-devel lua52-devel mit-krb5-devel gnutls-devel
- geoip-devel libgcrypt-devel gtk+3-devel libcap-devel sbc-devel"
+ geoip-devel libgcrypt-devel gtk+3-devel libcap-devel sbc-devel c-ares-devel"
 depends="libcap-progs"
 short_desc="A network protocol analyzer"
 maintainer="Enno Boland <gottox@voidlinux.eu>"
@@ -17,7 +16,7 @@ license="GPL-2"
 # XXX ovh is blocked (repo4.voidlinux.eu can't download this).
 distfiles="http://www.wireshark.org/download/src/${pkgname}-${version}.tar.bz2"
 #distfiles="https://sources.voidlinux.eu/${pkgname}-${version}/${pkgname}-${version}.tar.bz2"
-checksum=9ea9c82da9942194ebc8fc5c951a02e6d179afa7472cb6d96ca76154510de1a5
+checksum=900e22af04c8b35e0d02a25a360ab1fb7cfe5ac18fc48a9afd75a7103e569149
 system_groups="wireshark"
 subpackages="libwireshark libwireshark-devel wireshark-gtk"
 
@@ -40,7 +39,7 @@ post_install() {
 
 	# Headers
 	vmkdir $_includeDir
-	vcopy "color.h config.h register.h ws_symbol_export.h" $_includeDir
+	vcopy "config.h register.h ws_symbol_export.h" $_includeDir
 
 	for i in wiretap wsutil; do
 		vmkdir $_includeDir/$i

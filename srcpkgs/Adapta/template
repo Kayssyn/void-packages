@@ -1,0 +1,20 @@
+# Template file for 'Adapta'
+pkgname=Adapta
+version=3.22.2.33
+revision=1
+build_style=gnu-configure
+wrksrc="adapta-gtk-theme-$version"
+hostmakedepends="automake ruby inkscape glib-devel parallel"
+short_desc="An adaptive Gtk+ theme based on Material Design Guidelines"
+maintainer="demiaster <marta.celeste.feriani@gmail.com>"
+license="GPL-2"
+homepage="https://github.com/tista500/$pkgname"
+distfiles="$homepage/archive/$version.tar.gz"
+checksum=4aeb254c5014ebdfa05725f6c287729b99673f153e70a60c016a1f15e347b3ae
+
+noarch=y
+
+pre_configure() {
+	gem install bundler sass
+	./autogen.sh
+}

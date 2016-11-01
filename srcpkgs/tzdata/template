@@ -1,6 +1,6 @@
 # Template file for 'tzdata'
 pkgname=tzdata
-version=2016e
+version=2016h
 revision=1
 wrksrc=${pkgname}
 create_wrksrc=yes
@@ -9,9 +9,9 @@ hostmakedepends="tzutils"
 homepage="http://www.iana.org/time-zones"
 short_desc="Time zone and daylight-saving time data"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
-license="GPL-2"
+license="Public Domain"
 distfiles="http://www.iana.org/time-zones/repository/releases/tzdata${version}.tar.gz"
-checksum=ba00f899f18dc4048d7fa21f5e1fdef434496084eedc06f6caa15e5ecdb6bd81
+checksum=da1b74fc2dec2ce8b64948dafb0bfc2f923c830d421a7ae4d016226135697a64
 
 do_install() {
 	local timezones="africa antarctica asia australasia europe northamerica \

@@ -1,6 +1,6 @@
 # Template file for 'mediainfo'
 pkgname=mediainfo
-version=0.7.87
+version=0.7.90
 revision=1
 short_desc="Display technical and tag data for video and audio files"
 homepage="http://mediaarea.net/MediaInfo"
@@ -14,7 +14,7 @@ _gnudir="MediaInfo/Project/GNU"
 replaces="mediainfo-gui>=0"
 license="BSD"
 distfiles="https://mediaarea.net/download/source/${pkgname}/${version}/${pkgname}_${version}.tar.gz"
-checksum=ef6812ab10207a4a178a965027725496f645579209dff196c919598da4fef4af
+checksum=2a7fe1ee1bf0672d4a56346b5feeac58b050852c0906a92577814518116ca7d1
 nocross=yes # wxWidgets
 
 do_configure() {

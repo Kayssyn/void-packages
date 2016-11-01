@@ -211,7 +211,7 @@ get_subpkgs() {
 }
 
 setup_pkg() {
-    local pkg="$1" cross="$2"
+    local pkg="$1" cross="$2" show_broken="$3"
     local basepkg val _vars f dbgflags arch
 
     [ -z "$pkg" ] && return 1
@@ -262,6 +262,9 @@ setup_pkg() {
 
     export XBPS_INSTALL_XCMD XBPS_QUERY_XCMD XBPS_RECONFIGURE_XCMD \
         XBPS_REMOVE_XCMD XBPS_RINDEX_XCMD XBPS_UHELPER_XCMD
+
+    export XBPS_GCC_VERSION_MAJOR XBPS_GCC_VERSION_MINOR XBPS_GCC_VERSION_BUILD \
+        XBPS_GCC_VERSION
 
     # Source all sourcepkg environment setup snippets.
     # Source all subpkg environment setup snippets.
@@ -381,20 +384,21 @@ setup_pkg() {
 
     export BUILD_CC="cc"
     export BUILD_CFLAGS="$XBPS_CFLAGS"
+    export BUILD_CXXFLAGS="$XBPS_CXXFLAGS"
+    export BUILD_CPPFLAGS="$XBPS_CPPFLAGS"
+    export BUILD_LDFLAGS="$XBPS_LDFLAGS"
+
     export CC_FOR_BUILD="cc"
     export CXX_FOR_BUILD="g++"
     export CPP_FOR_BUILD="cpp"
     export LD_FOR_BUILD="ld"
     export CFLAGS_FOR_BUILD="$XBPS_CFLAGS"
-    export BUILD_CFLAGS="$XBPS_CFLAGS"
     export CXXFLAGS_FOR_BUILD="$XBPS_CXXFLAGS"
-    export BUILD_CXXFLAGS="$XBPS_CXXFLAGS"
     export CPPFLAGS_FOR_BUILD="$XBPS_CPPFLAGS"
-    export BUILD_CPPFLAGS="$XBPS_CPPFLAGS"
     export LDFLAGS_FOR_BUILD="$XBPS_LDFLAGS"
-    export BUILD_LDFLAGS="$XBPS_LDFLAGS"
 
     if [ -n "$cross" ]; then
+        # Regular tools names
         export CC="${XBPS_CROSS_TRIPLET}-gcc"
         export CXX="${XBPS_CROSS_TRIPLET}-c++"
         export CPP="${XBPS_CROSS_TRIPLET}-cpp"
@@ -408,6 +412,44 @@ setup_pkg() {
         export OBJCOPY="${XBPS_CROSS_TRIPLET}-objcopy"
         export NM="${XBPS_CROSS_TRIPLET}-nm"
         export READELF="${XBPS_CROSS_TRIPLET}-readelf"
+        # Target tools
+        export CC_target="$CC"
+        export CXX_target="$CXX"
+        export CPP_target="$CPP"
+        export GCC_target="$GCC"
+        export LD_target="$LD"
+        export AR_target="$AR"
+        export AS_target="$AS"
+        export RANLIB_target="$RANLIB"
+        export STRIP_target="$STRIP"
+        export OBJDUMP_target="$OBJDUMP"
+        export OBJCOPY_target="$OBJCOPY"
+        export NM_target="$NM"
+        export READELF_target="$READELF"
+        # Target flags
+        export CFLAGS_target="$CFLAGS"
+        export CXXFLAGS_target="$CXXFLAGS"
+        export CPPFLAGS_target="$CPPFLAGS"
+        export LDFLAGS_target="$LDFLAGS"
+        # Host tools
+        export CC_host="cc"
+        export CXX_host="g++"
+        export CPP_host="cpp"
+        export GCC_host="$CC_host"
+        export LD_host="ld"
+        export AR_host="ar"
+        export AS_host="as"
+        export RANLIB_host="ranlib"
+        export STRIP_host="strip"
+        export OBJDUMP_host="objdump"
+        export OBJCOPY_host="objcopy"
+        export NM_host="nm"
+        export READELF_host="readelf"
+        # Host flags
+        export CFLAGS_host="$XBPS_CFLAGS"
+        export CXXFLAGS_host="$XBPS_CXXFLAGS"
+        export CPPFLAGS_host="$XBPS_CPPFLAGS"
+        export LDFLAGS_host="$XBPS_LDFLAGS"
     else
         export CC="cc"
         export CXX="g++"
@@ -422,6 +464,13 @@ setup_pkg() {
         export OBJCOPY="objcopy"
         export NM="nm"
         export READELF="readelf"
+        # Unse cross evironment variables
+        unset CC_target CXX_target CPP_target GCC_target LD_target AR_target AS_target
+        unset RANLIB_target STRIP_target OBJDUMP_target OBJCOPY_target NM_target READELF_target
+        unset CFLAGS_target CXXFLAGS_target CPPFLAGS_target LDFLAGS_target
+        unset CC_host CXX_host CPP_host GCC_host LD_host AR_host AS_host
+        unset RANLIB_host STRIP_host OBJDUMP_host OBJCOPY_host NM_host READELF_host
+        unset CFLAGS_host CXXFLAGS_host CPPFLAGS_host LDFLAGS_host
     fi
 
     set_build_options
@@ -436,7 +485,7 @@ setup_pkg() {
     if [ "$cross" -a "$nocross" ]; then
         msg_red "$pkgver: cannot be cross compiled, exiting...\n"
         exit 2
-    elif [ "$broken" ]; then
+    elif [ "$broken" -a "z$show_broken" != "zignore-broken" ]; then
         msg_red "$pkgver: cannot be built, it's currently broken; see the build log:\n"
         msg_red "$pkgver: $broken\n"
         exit 2

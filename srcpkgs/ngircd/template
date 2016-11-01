@@ -1,7 +1,7 @@
 # Template build file for 'ngircd'
 pkgname=ngircd
 version=23
-revision=2
+revision=3
 build_style=gnu-configure
 configure_args="--enable-ipv6 --with-openssl --without-ident ac_cv_func_getaddrinfo=yes"
 hostmakedepends="pkg-config"
@@ -11,7 +11,7 @@ homepage="http://ngircd.barton.de/"
 short_desc="Free, portable and lightweight Internet Relay Chat server"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-2"
-distfiles="http://ngircd.barton.de/pub/${pkgname}/${pkgname}-${version}.tar.xz"
+distfiles="https://github.com/ngircd/ngircd/releases/download/rel-${version}/ngircd-${version}.tar.xz"
 checksum=d431bdbc07401b29696b2119963dde2322052a7d8924188947fa3870a138fb6a
 
 post_configure() {

@@ -1,5 +1,5 @@
 # Template file for 'google-chrome'
-_chromeVersion=51.0.2704.106
+_chromeVersion=54.0.2840.59
 _chromeRevision=1
 _channel=stable
 
@@ -20,13 +20,30 @@ _filename="google-chrome-${_channel}_${_chromeVersion}-${_chromeRevision}_amd64.
 _chromeUrl="${_baseUrl}/${_filename}"
 
 distfiles="${_chromeUrl}"
-checksum=af8f1243deed908140bb2f18a3c25f7dd658acef9a1246bb17d82e07dcad6f62
-
+checksum=51101b9aeb30eb04e09f44c2ea3ece8b8d1a735d23acff02d0ad7f77721e4e7e
 
 do_extract() {
 	mkdir -p ${DESTDIR}
 	ar x ${XBPS_SRCDISTDIR}/google-chrome-${version}/${_filename}
 }
+
 do_install() {
 	tar xf data.tar.xz -C ${DESTDIR}
+
+	# Install the icons
+	for size in 16 22 24 32 48 64 128 256; do
+		# Create the google chrome xdg directory
+		mkdir -p ${DESTDIR}/usr/share/icons/hicolor/${size}x${size}/apps
+
+		# Copy the google chrome icon
+		mv ${DESTDIR}/opt/google/chrome/product_logo_${size}.png \
+		   ${DESTDIR}/usr/share/icons/hicolor/${size}x${size}/apps/google-chrome.png
+	done
+
+	# Remove unused icons
+	rm ${DESTDIR}/opt/google/chrome/*.xpm
+
+	# Remove the Debian/Ubuntu crontab
+	rm -rf ${DESTDIR}/etc
+	rm -rf ${DESTDIR}/opt/google/chrome/cron
 }

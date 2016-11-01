@@ -1,19 +1,20 @@
 # Template file for 'llvm'
 pkgname=llvm
-version=3.8.0
-revision=3
+version=3.9.0
+revision=2
 wrksrc="llvm-${version}.src"
 lib32disabled=yes
 build_style=cmake
 configure_args="
  -DCMAKE_BUILD_TYPE=Release
  -DLLVM_BUILD_LLVM_DYLIB=ON
- -DLLVM_LINK_LLVM_DYLIB=ON
+ -DLLVM_LINK_LLVM_DYLIB=OFF
  -DLLVM_DYLIB_EXPORT_ALL=ON
  -DLLVM_ENABLE_RTTI=ON
  -DLLVM_ENABLE_FFI=ON
  -DLLVM_BINUTILS_INCDIR=/usr/include
  -DCMAKE_INSTALL_DO_STRIP=0"
+nodebug=yes  # while -DLLVM_LINK_LLVM_DYLIB=OFF
 short_desc="Low Level Virtual Machine"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://www.llvm.org"
@@ -25,19 +26,19 @@ distfiles="
  http://www.llvm.org/releases/${version}/cfe-${version}.src.tar.xz
  http://www.llvm.org/releases/${version}/clang-tools-extra-${version}.src.tar.xz
  http://www.llvm.org/releases/${version}/compiler-rt-${version}.src.tar.xz"
-checksum="555b028e9ee0f6445ff8f949ea10e9cd8be0d084840e21fbbe1d31d51fc06e46
- e3f68f44147df0433e7989bf6ed1c58ff28d7c68b9c47553cb9915f744785a35
- 94704dda228c9f75f4403051085001440b458501ec97192eee06e8e67f7f9f0c
- 04149236de03cf05232d68eb7cb9c50f03062e339b68f4f8a03b650a11536cf9
- afbda810106a6e64444bc164b921be928af46829117c95b996f2678ce4cb1ec4
- c8d3387e55f229543dac1941769120f24dc50183150bf19d1b070d53d29d56b0"
+checksum="66c73179da42cee1386371641241f79ded250e117a79f571bbd69e56daa48948
+ 61280e07411e3f2b4cca0067412b39c16b0a9edd19d304d3fc90249899d12384
+ 986e8150ec5f457469a20666628bf634a5ca992a53e157f3b69dbc35056b32d9
+ 7596a7c7d9376d0c89e60028fe1ceb4d3e535e8ea8b89e0eb094e0dcb3183d28
+ 5b7aec46ec8e999ec683c87ad744082e1133781ee4b01905b4bdae5d20785f14
+ e0e5224fcd5740b61e416c549dd3dcda92f10c524216c1edb5e979e42078a59a"
 
 # XXX Investigate ocaml bindings.
-hostmakedepends="groff perl python zlib-devel libffi-devel swig cmake"
+hostmakedepends="groff perl python zlib-devel libffi-devel swig"
 makedepends="python-devel zlib-devel libffi-devel libedit-devel libxml2-devel binutils-devel"
-depends="libllvm3.8"
+depends="libllvm3.9"
 
-subpackages="clang clang-analyzer libllvm3.8"
+subpackages="clang-tools-extra clang clang-analyzer libllvm3.9"
 if [ -z "$CROSS_BUILD" ]; then
 	# XXX fails to cross compile due to python
 	subpackages+=" lldb lldb-devel"
@@ -83,7 +84,7 @@ post_extract() {
 	fi
 	# Move clang-tools-extra files into llvm source.
 	if [ -d ${XBPS_BUILDDIR}/clang-tools-extra-${version}.src ]; then
-		mv ${XBPS_BUILDDIR}/clang-tools-extra-${version}.src ${wrksrc}/tools/clang/extra
+		mv ${XBPS_BUILDDIR}/clang-tools-extra-${version}.src ${wrksrc}/tools/clang/tools/extra
 	fi
 	# Move lld files into the llvm source.
 	if [ -d ${XBPS_BUILDDIR}/lld-${version}.src ]; then
@@ -131,6 +132,10 @@ pre_configure() {
 	configure_args+=" -DLLVM_TARGET_ARCH=${_arch}"
 	configure_args+=" -DLLVM_DEFAULT_TARGET_TRIPLE=${XBPS_CROSS_TRIPLET:-$XBPS_TRIPLET}"
 }
+post_configure() {
+	# Don't leak CFLAGS into llvm-config.
+        sed -i -e "s|\(-specs=.*hardened-ld\)||g" -e "s|\(-specs=.*hardened-cc1\)||g" tools/llvm-config/BuildVariables.inc
+}
 
 do_install() {
 	vlicense LICENSE.TXT
@@ -171,6 +176,23 @@ clang-analyzer_package() {
 		vmove "/usr/libexec/*analyzer"
 	}
 }
+clang-tools-extra_package() {
+	depends="clang-${version}_${revision} python"
+	short_desc+=" - Extra Clang tools"
+	homepage="http://clang.llvm.org/extra/"
+	pkg_install() {
+		vmove usr/bin/clang-apply-replacements
+		vmove usr/bin/clang-query
+		vmove usr/bin/clang-rename
+		vmove usr/bin/clang-tidy
+		vmove usr/bin/modularize
+		vmove "usr/lib/libclangApplyReplacements*"
+		vmove "usr/lib/libclangQuery*"
+		vmove "usr/lib/libclangRename*"
+		vmove "usr/lib/libclangTidy*"
+		vmove "usr/share/clang/*tidy*"
+	}
+}
 clang_package() {
 	lib32disabled=yes
 	depends="libstdc++-devel libgcc-devel binutils"
@@ -185,6 +207,7 @@ clang_package() {
 		vmove "usr/bin/*clang*"
 		vmove usr/bin/c-index-test
 		vmove usr/lib/clang
+		vmove usr/lib/cmake/clang
 		vmove "usr/lib/libclang*"
 		vmove "usr/share/clang"
 	}
@@ -230,7 +253,7 @@ lldb-devel_package() {
 		vmove "usr/lib/liblldb*.so"
 	}
 }
-libllvm3.8_package() {
+libllvm3.9_package() {
 	short_desc+=" - runtime library"
 	pkg_install() {
 		vmove "usr/lib/libLLVM-*.so*"

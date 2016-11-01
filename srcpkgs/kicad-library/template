@@ -1,6 +1,6 @@
 # Template file for 'kicad-library'
 pkgname=kicad-library
-version=4.0.2
+version=4.0.4
 revision=1
 noarch=yes
 build_style=cmake
@@ -11,4 +11,4 @@ maintainer="Steve Prybylski <sa.prybylx@gmail.com>"
 license="LGPL-2"
 homepage="http://kicad-pcb.org"
 distfiles="https://github.com/kicad/kicad-library/archive/${version}.tar.gz>${pkgname}-${version}.tar.gz"
-checksum=0499da0fa617248a4196e50ff65c0bf78cb456bf1ca4bd6c72d956044b310bef
+checksum=a881be6baa7010be57f76b96b66de2f79545fb99f721cb1224518bef196d8f42

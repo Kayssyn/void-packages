@@ -1,6 +1,6 @@
 # Template file for 'prometheus'
 pkgname=prometheus
-version=0.20.0
+version=1.1.2
 revision=1
 build_style=go
 go_import_path="github.com/prometheus/prometheus"
@@ -13,8 +13,8 @@ maintainer="Dominik Honnef <dominik@honnef.co>"
 license="Apache-2.0"
 homepage="https://prometheus.io/"
 short_desc="A monitoring system and time series database"
-distfiles="https://github.com/prometheus/prometheus/archive/${version}.tar.gz"
-checksum=9f330b8a5d814b3c7852e8b2392bf50483cf939e53460fe2b5ab681ab87a4890
+distfiles="https://github.com/prometheus/prometheus/archive/v${version}.tar.gz"
+checksum=1a924ce9d8880a6dbff11eefbb823cdcc0af5977488deb8e5d16a74ae68d4708
 
 post_install() {
 	vlicense LICENSE

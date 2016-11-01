@@ -1,13 +1,13 @@
 # Template file for 'gnome-nibbles'
 pkgname=gnome-nibbles
-version=3.20.2.1
+version=3.22.1
 revision=1
 build_style=gnu-configure
 hostmakedepends="glib intltool itstool pkg-config glib-devel"
-makedepends="clutter-gtk-devel libcanberra-devel librsvg-devel libgames-support-devel"
+makedepends="clutter-gtk-devel libcanberra-devel librsvg-devel libgnome-games-support-devel"
 short_desc="GNOME snake eats diamonds game"
 maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
 license="GPL-2"
 homepage="https://wiki.gnome.org/Apps/Nibbles"
-distfiles="${GNOME_SITE}/${pkgname}/${version%.*.*}/${pkgname}-${version}.tar.xz"
-checksum=9253431072e3dff89cc13582c815cc9ed9d7c2d7a10321418a2e7416c1ef7e67
+distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=511ae29cc425fcf0f2f9e6a44504215c458fb83bf772e36f79e17b0b1e2d46ff

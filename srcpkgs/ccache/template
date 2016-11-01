@@ -1,6 +1,6 @@
 # Template file for 'ccache'
 pkgname=ccache
-version=3.2.5
+version=3.3.3
 revision=1
 bootstrap=yes
 build_style=gnu-configure
@@ -10,14 +10,15 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://ccache.samba.org"
 license="GPL-2"
 distfiles="http://samba.org/ftp/${pkgname}/${pkgname}-${version}.tar.bz2"
-checksum=7a553809e90faf9de3a23ee9c5b5f786cfd4836bf502744bedb824a24bee1097
+checksum=2985bc5e32ebe38d2958d508eb54ddcad39eed909489c0c2988035214597ca54
 
 post_install() {
 	vmkdir usr/lib/ccache/bin
 	for f in gcc cc c++ g++; do
 		ln -sfr ${DESTDIR}/usr/bin/ccache ${DESTDIR}/usr/lib/ccache/bin/${f}
 		for x in arm-linux-gnueabi arm-linux-gnueabihf armv7l-linux-gnueabihf \
-			arm-linux-musleabihf armv7l-linux-musleabihf; do
+			arm-linux-musleabihf armv7l-linux-musleabihf aarch64-linux-gnu \
+			aarch64-linux-musl; do
 			ln -sfr ${DESTDIR}/usr/bin/ccache ${DESTDIR}/usr/lib/ccache/bin/${x}-${f}
 		done
 	done

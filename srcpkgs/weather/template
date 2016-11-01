@@ -1,6 +1,6 @@
 # Template file for 'weather'
 pkgname=weather
-version=2.0
+version=2.2
 revision=1
 noarch=yes
 hostmakedepends="python-devel"
@@ -12,7 +12,7 @@ maintainer="Richard Taityr <dicktyr@yahoo.co.uk>"
 license="ISC"
 homepage="http://fungi.yuggoth.org/weather/"
 distfiles="http://fungi.yuggoth.org/${pkgname}/src/${pkgname}-${version}.tar.xz"
-checksum=807aff002d31cd81aeaae096981c28900323c405b8f7d36625d9c7e48719347a
+checksum=6dc2e7bf5aea1e351f3aa0552c6a78a2d68ee074554e66df188d901bace1d86c
 
 do_install() {
 	vbin weather

@@ -1,0 +1,15 @@
+# Template file for 'brotli'
+pkgname=brotli
+version=0.5.2
+revision=1
+build_style=cmake
+short_desc="Generic-purpose lossless compression algorithm"
+maintainer="Christian Neukirchen <chneukirchen@gmail.com>"
+license="MIT"
+homepage="https://github.com/google/brotli"
+distfiles="https://github.com/google/${pkgname}/archive/v${version}.tar.gz"
+checksum=2b7b1183682a17d8a9b83170fccdbec270c9e56baf8c0082f5d9c4528412d343
+
+post_install() {
+	vlicense LICENSE
+}

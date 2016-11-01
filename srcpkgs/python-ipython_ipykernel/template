@@ -1,12 +1,11 @@
 # Template file for 'python-ipython_ipykernel'
 pkgname=python-ipython_ipykernel
-version=4.3.1
-revision=1
+version=4.5.0
+revision=3
 noarch=yes
 wrksrc="ipykernel-${version}"
 build_style=python-module
-python_versions="2.7 3.4"
-hostmakedepends="python-setuptools python3.4-setuptools"
+hostmakedepends="python-setuptools python3-setuptools"
 depends="python-ipython>=4.0.0 python-traitlets python-jupyter_client"
 pycompile_module="ipykernel"
 short_desc="IPython kernel for Jupyter (Python2)"
@@ -14,20 +13,26 @@ maintainer="Alessio Sergi <al3hex@gmail.com>"
 homepage="https://github.com/ipython/ipykernel"
 license="3-clause-BSD"
 distfiles="${PYPI_SITE}/i/ipykernel/ipykernel-${version}.tar.gz"
-checksum=8219d3eaa3e4d4efc5f349114e41a40f0986c91a960846bb81d5da817fb7cc3f
+checksum=245a798edb8fd751b95750d8645d736dd739a020e7fc7d5627dac4d1c35d8295
 
 post_install() {
 	vlicense COPYING.md LICENSE
 }
 
-python3.4-ipython_ipykernel_package() {
+python3-ipython_ipykernel_package() {
 	noarch=yes
-	depends="python3.4-ipython>=4.0.0 python3.4-traitlets python3.4-jupyter_client"
-	pycompile_version="3.4"
+	depends="python3-ipython>=4.0.0 python3-traitlets python3-jupyter_client"
+	replaces="python3.4-ipython_ipykernel>=0"
 	pycompile_module="ipykernel"
-	short_desc="${short_desc/Python2/Python3.4}"
+	short_desc="${short_desc/Python2/Python3}"
 	pkg_install() {
-		vmove usr/lib/python3.4
+		vmove usr/lib/python3*
 		vlicense COPYING.md LICENSE
 	}
+}
+python3.4-ipython_ipykernel_package() {
+	noarch=yes
+	build_style=meta
+	short_desc="${short_desc/Python2/Python3.4} (transitional dummy package)"
+	depends="python3-ipython_ipykernel>=${version}_${revision}"
 }

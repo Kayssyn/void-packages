@@ -1,6 +1,6 @@
 # Template build file for 'perl-Date-Manip'.
 pkgname=perl-Date-Manip
-version=6.54
+version=6.56
 revision=1
 wrksrc="${pkgname/perl-/}-${version}"
 build_style=perl-module
@@ -13,4 +13,4 @@ maintainer="John Regan <john@jrjrtech.com>"
 license="Artistic, GPL-1"
 homepage="http://search.cpan.org/dist/${pkgname/perl-/}/"
 distfiles="${CPAN_SITE}/Date/${pkgname/perl-/}-${version}.tar.gz"
-checksum=3d37a1f4918004d6ffed4a709637dd41cd8b883355ab9ded0f83f6e836dcba68
+checksum=acae07026b84d157f161d569b41026f4770e72872a5c7d70c295e2083a1ff5ec

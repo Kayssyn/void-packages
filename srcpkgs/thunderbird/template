@@ -1,13 +1,13 @@
 # Template build file for 'thunderbird'.
 pkgname=thunderbird
-version=45.2.0
+version=45.4.0
 revision=1
 short_desc="Standalone Mail/News reader"
 maintainer="Enno Boland <gottox@voidlinux.eu>"
 homepage="http://www.mozilla.org/thunderbird/"
 license="MPL-2.0, GPL-2, LGPL-2.1"
 distfiles="${MOZILLA_SITE}/${pkgname}/releases/${version}/source/${pkgname}-${version}.source.tar.xz"
-checksum=bd2389cbb28138668ab41b26f1dce49c455807e09b43fd370ee765ae3f0937c0
+checksum=36f66edbb9b0f1ff9d0de8f12eab6cccbfa23db79e01db307fb2186904a38e61
 
 nopie=yes
 lib32disabled=yes
@@ -21,6 +21,14 @@ makedepends="
  dbus-glib-devel alsa-lib-devel hunspell-devel libXcomposite-devel
  libSM-devel libXScrnSaver-devel libXt-devel libXdamage-devel"
 depends="desktop-file-utils hicolor-icon-theme"
+
+if [ ${XBPS_GCC_VERSION_MAJOR} -gt 5 ]; then
+        # Append CFLAGS and CXXFLAGS to set work around code which gcc6 would
+        # otherwise regard as out-of-specification and allow it to produce a
+        # working program.
+        CFLAGS+=" -fno-delete-null-pointer-checks -fno-lifetime-dse -fno-schedule-insns2"
+        CXXFLAGS+=" -fno-delete-null-pointer-checks -fno-lifetime-dse -fno-schedule-insns2"
+fi
 
 pre_configure() {
 	case "$XBPS_TARGET_MACHINE" in

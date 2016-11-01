@@ -1,6 +1,6 @@
 # Template file for 'i2pd'
 pkgname=i2pd
-version=2.8.0
+version=2.10.0
 revision=1
 build_style=cmake
 short_desc="Full-featured C++ implementation of I2P client"
@@ -12,7 +12,7 @@ depends="$(vopt_if upnp miniupnpc) zlib"
 build_wrksrc="build"
 configure_args=" -DCMAKE_BUILD_TYPE=Release $(vopt_if upnp -DWITH_UPNP=ON) $(vopt_if aesni -DWITH_AESNI=ON)"
 distfiles="${homepage}/archive/${version}.tar.gz"
-checksum=3f3f538b3c5b3095021311b434456c42d6f3b5e43dc7972c263b10ef179ba063
+checksum=614d746e4d0b13433de56eb0492a6a4aa36a5b43ab88f12429ed5bd20baa78a0
 build_options="upnp aesni"
 desc_option_upnp="build with UPnP support"
 desc_option_aesni="build with AES-NI support"
@@ -20,4 +20,3 @@ desc_option_aesni="build with AES-NI support"
 post_install() {
 	vlicense ${wrksrc}/LICENSE
 }
-

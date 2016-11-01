@@ -1,6 +1,6 @@
 # Template file for 'docker2aci'
 pkgname=docker2aci
-version=0.11.1
+version=0.13.0
 revision=1
 hostmakedepends="git git-perl"
 build_style=go
@@ -10,4 +10,4 @@ license="Apache-2.0"
 go_import_path="github.com/appc/docker2aci"
 homepage="https://$go_import_path"
 distfiles="$homepage/archive/v$version.tar.gz"
-checksum=af7b7317a99f6d361f3b1883cefbc4a8f0c08eec8ad370ed9e011effb6acf0f4
+checksum=7757b1ef5519f464bd49651eab466904d494629633712df2c0ad1aadbbc3a57a

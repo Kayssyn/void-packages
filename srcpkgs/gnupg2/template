@@ -1,7 +1,7 @@
 # Template file for 'gnupg2'
 pkgname=gnupg2
-version=2.1.13
-revision=3
+version=2.1.15
+revision=2
 wrksrc="gnupg-${version}"
 build_style=gnu-configure
 configure_args="--sbindir=/usr/bin
@@ -20,7 +20,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-3"
 homepage="http://www.gnupg.org/"
 distfiles="ftp://ftp.gnupg.org/gcrypt/gnupg/gnupg-${version}.tar.bz2"
-checksum=4f9d83a6221daa60130fa79f0b1d37d6c20fffdd0320b640c7a597c5b6219675
+checksum=c28c1a208f1b8ad63bdb6b88d252f6734ff4d33de6b54e38494b11d49e00ffdd
 
 pre_configure() {
 	sed -i '/^CFLAGS_orig=/d;/^CFLAGS=$/d' configure

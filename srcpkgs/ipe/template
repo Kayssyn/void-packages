@@ -1,7 +1,7 @@
 # Template file for 'ipe'
 pkgname=ipe
-version=7.2.4
-revision=1
+version=7.2.6
+revision=2
 _tools_commit=e5b23399a83d69fd5bb5d4645ef7325b4b57435b
 hostmakedepends="wget pkg-config"
 makedepends="qt5-devel lua52-devel libjpeg-turbo-devel cairo-devel poppler-devel"
@@ -10,8 +10,8 @@ maintainer="Christian Neukirchen <chneukirchen@gmail.com>"
 license="GPL-3, GPL-2"
 homepage="http://ipe.otfried.org/"
 distfiles="http://dl.bintray.com/otfried/generic/ipe/${version%.*}/${pkgname}-${version}-src.tar.gz
- https://github.com/otfried/ipe-tools/archive/$_tools_commit.tar.gz"
-checksum="ee2fc8fb93262603cb01e2ed2e30cbc0268d5457c4d48f88b38747da4c8c070a
+ https://github.com/otfried/ipe-tools/archive/${_tools_commit}.tar.gz"
+checksum="0bc880c564f6f66566305875e3a83a626241e01634e343e507d97d6e74de7d49
  60a96ad4674fc8f3c2d8bd8ab789734dbb47cabed09a178f595b0e478a526442"
 XBPS_FETCH_CMD=wget  # nothing else speaks with that terrible crappy host
 

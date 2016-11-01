@@ -1,6 +1,6 @@
 # Template file for 'seafile-client-qt'
 pkgname=seafile-client-qt
-version=5.1.3
+version=6.0.0
 revision=1
 _sourcename="seafile-client"
 wrksrc="${_sourcename}-${version}"
@@ -9,7 +9,7 @@ configure_args="-DUSE_QT5=ON"
 
 # nocross since qt unavailable for arm* architecture
 nocross=yes
-hostmakedepends="pkg-config cmake"
+hostmakedepends="pkg-config"
 makedepends="sqlite-devel jansson-devel ccnet-devel libsearpc-devel
 	libressl-devel seafile-libclient-devel libevent-devel libuuid-devel
 	qt5-devel qt5-tools-devel desktop-file-utils"
@@ -19,7 +19,7 @@ maintainer="yopito <pierre.bourgin@free.fr>"
 license="ASL-2"
 homepage="https://github.com/haiwen/${_sourcename}"
 distfiles="https://github.com/haiwen/${_sourcename}/archive/v${version}.tar.gz>${pkgname}-${version}.tar.gz"
-checksum=28a83b78ee15e11799be30c94cb9a4472c9bb19d3f2480daa6a1abcb31052c16
+checksum=06a32b0ce34ab7f0ef298520f9ef4b24c1b9c4c2e5a8d8f248cc444ef6bd0544
 
 case "$XBPS_TARGET_MACHINE" in
 	*-musl)	# Add musl-fts implementation

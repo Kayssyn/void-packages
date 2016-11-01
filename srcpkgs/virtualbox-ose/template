@@ -1,25 +1,25 @@
 # Template file for 'virtualbox-ose'
 pkgname=virtualbox-ose
-version=5.0.22
+version=5.1.8
 revision=1
 wrksrc="VirtualBox-${version}"
 short_desc="General-purpose full virtualizer for x86 hardware"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://virtualbox.org"
-license="GPL-2, MPL-1.1, CDDL"
+license="GPL-2, CDDL"
 distfiles="http://download.virtualbox.org/virtualbox/$version/VirtualBox-$version.tar.bz2"
-checksum=2ee71a79337ba9805084d53af1e9543f178b5be8f5c78692a0c05b208bae86ec
+checksum=e447031de468aee746529b2cf60768922f9beff22a13c54284aa430f5e925933
 
 nopie=yes
 lib32disabled=yes
 only_for_archs="i686 x86_64"
 
-hostmakedepends="perl pkg-config dev86 yasm acpica-utils"
+hostmakedepends="perl pkg-config dev86 yasm acpica-utils qt5-tools"
 makedepends="libressl-devel libcurl-devel libpng-devel libvpx-devel
- alsa-lib-devel pulseaudio-devel SDL-devel qt-devel libXcursor-devel
- libXinerama-devel libXcomposite-devel libIDL-devel libglib-devel
- pam-devel python-devel libxslt-devel libcap-devel xorg-server-devel
- device-mapper-devel docbook-xsl gsoap-devel"
+ alsa-lib-devel pulseaudio-devel SDL-devel qt5-devel qt5-x11extras-devel
+ libXcursor-devel libXinerama-devel libXcomposite-devel libIDL-devel
+ libglib-devel pam-devel python-devel libxslt-devel libcap-devel
+ xorg-server-devel device-mapper-devel docbook-xsl gsoap-devel"
 
 if [ "$XBPS_MACHINE" = "x86_64" ]; then
 	makedepends+=" gcc-c++-multilib"
@@ -47,7 +47,7 @@ do_build() {
 	sed -i -e "/webtest_LIBS/,/^webtest_/s/.*LIB_.*/\0 z/" \
 		-e "/vboxwebsrv_LIBS/,/^vboxwebsrv_/s/.*LIB_.*/\0 z/" src/VBox/Main/webservice/Makefile.kmk
 	source ./env.sh
-	kmk ${makejobs} all
+	kmk ${makejobs} KBUILD_VERBOSE=2 all
 }
 do_install() {
 	local f _osedir _guestdir

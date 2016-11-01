@@ -1,6 +1,6 @@
 # Template file for 'sshguard'
 pkgname=sshguard
-version=1.6.4
+version=1.7.1
 revision=1
 build_style=gnu-configure
 configure_args="--with-firewall=iptables"
@@ -11,7 +11,7 @@ maintainer="Lodvær <lodvaer@gmail.com>"
 license="3-clause-BSD"
 homepage="http://www.sshguard.net/"
 distfiles="${SOURCEFORGE_SITE}/sshguard/$pkgname-$version.tar.gz"
-checksum=654d5412ed010e500e2715ddeebfda57ab23c47a2bd30dfdc1e68c4f04c912a9
+checksum=2e527589c9b33219222d827dff63974229d044de945729aa47271c4a29aaa195
 
 post_install() {
 	vsv sshguard-socklog

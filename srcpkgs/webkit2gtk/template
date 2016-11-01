@@ -1,6 +1,6 @@
 # Template file for 'webkit2gtk'
 pkgname=webkit2gtk
-version=2.12.3
+version=2.14.1
 revision=1
 wrksrc="webkitgtk-$version"
 build_style=cmake
@@ -10,7 +10,7 @@ maintainer="Enno Boland <gottox@voidlinux.eu>"
 homepage="http://webkitgtk.org/"
 license="LGPL-2.1, 2-clause-BSD"
 distfiles="${homepage}/releases/webkitgtk-${version}.tar.xz"
-checksum=173cbb9a2eca23eee52e99965483ab25aa9c0569ef5b57041fc0c129cc26c307
+checksum=2e2d76c328de65bed6e0e4f096b2720a366654b27fc1af0830ece90bc4b7ceb5
 
 # ETOOHUGE
 nodebug=1
@@ -20,9 +20,13 @@ hostmakedepends="perl python pkg-config intltool gperf flex
 makedepends="
  at-spi2-core-devel libjpeg-turbo-devel libpng-devel sqlite-devel
  harfbuzz-devel gst-plugins-base1-devel libsoup-devel libxslt-devel
- icu-devel enchant-devel dbus-glib-devel libwebp-devel
+ gnutls-devel icu-devel enchant-devel dbus-glib-devel libwebp-devel
  gtk+-devel gtk+3-devel libgudev-devel libsecret-devel ruby-devel geoclue2
  libnotify-devel hyphen-devel"
+
+case "$XBPS_TARGET_MACHINE" in
+	armv6*) CXXFLAGS="-D__GCC_HAVE_SYNC_COMPARE_AND_SWAP_8=1"
+esac
 
 # Package build options
 build_options="gir wayland x11"

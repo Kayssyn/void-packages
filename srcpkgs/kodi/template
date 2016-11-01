@@ -1,7 +1,7 @@
 # Template file for 'kodi'
 pkgname=kodi
 version=16.1
-revision=2
+revision=7
 patch_args="-Np1"
 _codename="Jarvis"
 wrksrc="xbmc-${version}-${_codename}"
@@ -11,10 +11,6 @@ homepage="http://www.kodi.tv/"
 license="GPL-2"
 distfiles="https://github.com/xbmc/xbmc/archive/${version}-${_codename}.tar.gz"
 checksum=7d82c8aff2715c83deecdf10c566e26105bec0473af530a1356d4c747ebdfd10
-
-case "${XBPS_TARGET_MACHINE}" in
-	i686*) broken="http://build.voidlinux.eu/builders/i686_builder/builds/21640";;
-esac
 
 lib32disabled=yes
 only_for_archs="i686 i686-musl x86_64 x86_64-musl"
@@ -46,6 +42,11 @@ case "$XBPS_MACHINE" in
 	*) hostmakedepends+=" swig openjdk-jre";;
 esac
 
+# The patch fix-curl-750-compatibility.patch patches the kodi code to build against curl >= 7.50.0
+# since there were some forward declarations that conflicted after the changes in that curl release.
+# The upstream pull request can be found at https://github.com/xbmc/xbmc/pull/10160
+# Any updates to this package should bear the upstream PR in mind.
+
 # XXX http://build.voidlinux.eu/builders/x86_64_builder/builds/10520/steps/shell_3/logs/stdio
 CXXFLAGS="-fpermissive"
 
@@ -67,6 +68,13 @@ pre_configure() {
 do_configure() {
 	# Do not ship version check.
 	rm -rf addons/service.xbmc.versioncheck
+	# kodi fails to find it's userdata if it's configured with --libfir=/usr/lib32, see
+	# https://github.com/voidlinux/void-packages/issues/3302
+
+	if [ "${XBPS_TARGET_MACHINE}" = "i686" ]; then
+		configure_args=${configure_args/--libdir=\/usr\/lib32/}
+	fi
+
 	./configure ${configure_args} \
 		--disable-debug --enable-optimizations --enable-gl \
 		--enable-sdl --enable-vdpau --enable-vaapi --enable-joystick \

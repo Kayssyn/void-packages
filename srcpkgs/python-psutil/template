@@ -1,30 +1,34 @@
 # Template file for 'python-psutil'
 pkgname=python-psutil
-version=4.3.0
+version=4.4.2
 revision=1
 wrksrc="psutil-${version}"
 build_style=python-module
-python_versions="2.7 3.4"
-hostmakedepends="python-setuptools python3.4-setuptools"
-makedepends="python-devel python3.4-devel"
+hostmakedepends="python-setuptools python3-setuptools"
+makedepends="python-devel python3-devel"
 pycompile_module="psutil"
 short_desc="Cross-platform process and system utilities module for Python2"
 maintainer="Alessio Sergi <al3hex@gmail.com>"
 homepage="https://github.com/giampaolo/psutil"
 license="3-clause-BSD"
 distfiles="${PYPI_SITE}/p/psutil/psutil-${version}.tar.gz"
-checksum=86197ae5978f216d33bfff4383d5cc0b80f079d09cf45a2a406d1abb5d0299f0
+checksum=1c37e6428f7fe3aeea607f9249986d9bb933bb98133c7919837fd9aac4996b07
 
 post_install() {
 	vlicense LICENSE
 }
 
-python3.4-psutil_package() {
-	pycompile_version="3.4"
+python3-psutil_package() {
 	pycompile_module="psutil"
-	short_desc="${short_desc/Python2/Python3.4}"
+	replaces="python3.4-psutil>=0"
+	short_desc="${short_desc/Python2/Python3}"
 	pkg_install() {
-		vmove usr/lib/python3.4
+		vmove usr/lib/python3*
 		vlicense LICENSE
 	}
+}
+python3.4-psutil_package() {
+	build_style=meta
+	short_desc="${short_desc/Python2/Python3.4} (transitional dummy package)"
+	depends="python3-psutil>=${version}_${revision}"
 }

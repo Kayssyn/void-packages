@@ -1,16 +1,16 @@
 # Template file for 'liborcus'
 pkgname=liborcus
-version=0.11.2
-revision=1
+version=0.12.1
+revision=3
 build_style=gnu-configure
-hostmakedepends="automake libtool pkg-config python3.4"
-makedepends="boost-devel mdds libixion-devel python3.4-devel zlib-devel"
+hostmakedepends="automake libtool pkg-config python3"
+makedepends="boost-devel mdds libixion-devel python3-devel zlib-devel"
 short_desc="Library for processing spreadsheet documents"
 maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
 license="MPL-2.0"
 homepage="https://gitlab.com/orcus/orcus"
 distfiles="http://kohei.us/files/orcus/src/liborcus-${version}.tar.xz"
-checksum=6911dc65a4d8276e42d32764e9ebee920b325cf59cfa7070fc72744d43b259ad
+checksum=d1b936c66944d23e1b2582d0e7129e44670052510d03f19fef644e9814ae2b9c
 
 pre_configure() {
 	autoreconf -if
@@ -23,7 +23,7 @@ liborcus-devel_package() {
 		vmove usr/include
 		vmove usr/lib/*.so
 		vmove usr/lib/*.a
-		vmove usr/lib/python3.4/site-packages/*.a
+		vmove ${py3_sitelib}/*.a
 		vmove usr/lib/pkgconfig
 	}
 }

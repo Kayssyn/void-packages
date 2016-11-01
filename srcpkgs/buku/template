@@ -1,16 +1,17 @@
 # Template file for 'buku'
 pkgname=buku
-version=2.2
-revision=1
+version=2.5
+revision=2
 wrksrc=Buku-${version}
 noarch=yes
+hostmakedepends="python3"
 depends="python3"
 short_desc="A cmdline bookmark management utility"
 maintainer="Diogo Leal <diogo@diogoleal.com>"
 license="GPL-3"
 homepage="https://github.com/jarun/Buku"
 distfiles="https://github.com/jarun/Buku/archive/v${version}.tar.gz"
-checksum=f3aa56404ac08f03b87a6b1d4606fab0404993677facad2beb195e6f2b251c3d
+checksum=27dd770837110db8348446436aca3c7ed16b2884b4064aad0deb58d4ad4a69d4
 
 do_install() {
 	vbin buku

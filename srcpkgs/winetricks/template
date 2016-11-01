@@ -1,6 +1,6 @@
 # Template file for 'winetricks'
 pkgname=winetricks
-version=20160627
+version=20161012
 revision=1
 noarch=yes
 build_style=gnu-makefile
@@ -10,4 +10,4 @@ maintainer="Andrea Brancaleoni <miwaxe@gmail.com>"
 license="LGPL-3"
 homepage="http://wiki.winehq.org/$pkgname"
 distfiles="https://github.com/Winetricks/$pkgname/archive/$version.tar.gz"
-checksum=b8bd5d8b4b5b790bb094941fe9a4cc8486f00e98fb27e6466983cfe0b6ec035c
+checksum=094ecc82178bb2b6875e29927df068a1d7c114868ec86d5517e26e0214030f6f

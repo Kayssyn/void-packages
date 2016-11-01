@@ -1,16 +1,16 @@
 # Template file for 'tcpdump'
 pkgname=tcpdump
-version=4.7.4
-revision=5
+version=4.8.1
+revision=1
 build_style=gnu-configure
-configure_args="--sbindir=/usr/bin --enable-ipv6 td_cv_buggygetaddrinfo=no"
+configure_args="--enable-ipv6 td_cv_buggygetaddrinfo=no"
 makedepends="libpcap-devel libressl-devel"
 short_desc="A tool for network monitoring and data acquisition"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="3-clause-BSD"
 homepage="http://www.tcpdump.org"
 distfiles="http://www.tcpdump.org/release/${pkgname}-${version}.tar.gz"
-checksum=6be520269a89036f99c0b2126713a60965953eab921002b07608ccfc0c47d9af
+checksum=20e4341ec48fcf72abcae312ea913e6ba6b958617b2f3fb496d51f0ae88d831c
 
 post_install() {
 	vlicense LICENSE

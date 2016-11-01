@@ -1,6 +1,6 @@
 # Template file for 'qtcreator'
 pkgname=qtcreator
-version=4.0.2
+version=4.1.0
 revision=1
 wrksrc=qt-creator-opensource-src-${version}
 build_style=qmake
@@ -14,7 +14,7 @@ maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
 license="LGPL-2.1"
 homepage="http://wiki.qt.io/Category:Tools::QtCreator"
 distfiles="http://download.qt.io/official_releases/qtcreator/${version%.*}/${version}/${wrksrc}.tar.gz"
-checksum=c2fce74fef0cc3a8f5c03d7ed1e95ccfe508d855ee750647896876824fcaee10
+checksum=412c0223dbfd86983b39e10e2c7cb42b530995cfe2f3aa3529ea3f1b00ffb403
 
 do_build() {
 	# Note: A simple "make ${makejobs}" fails after libs because

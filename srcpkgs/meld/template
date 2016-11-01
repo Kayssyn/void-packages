@@ -1,9 +1,9 @@
 # Template file for 'meld'
 pkgname=meld
-version=3.16.1
-revision=1
+version=3.16.3
+revision=2
 noarch=yes
-build_style=python-module
+build_style=python2-module
 hostmakedepends="pkg-config intltool gnome-doc-utils python itstool gtk-update-icon-cache"
 depends="python-gobject gsettings-desktop-schemas gtksourceview desktop-file-utils hicolor-icon-theme"
 pycompile_module="meld"
@@ -12,7 +12,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://meldmerge.org/"
 license="GPL-2"
 distfiles="${GNOME_SITE}/meld/${version%.*}/meld-${version}.tar.xz"
-checksum=1bec697aa1ababa315ca8241ade65dc68ea87f0d316632f590975afcf967cfab
+checksum=efcae1530bf78113dfad42785ecb03cc06e48cd6a325c3e9236d99948269884c
 configure_args="--disable-schemas-compile"
 
 post_install() {

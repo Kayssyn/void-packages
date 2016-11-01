@@ -1,6 +1,6 @@
 # Template file for 'avidemux'
 pkgname=avidemux
-version=2.6.12
+version=2.6.14
 revision=2
 wrksrc="${pkgname}_${version}"
 hostmakedepends="cmake pkg-config qt5-qmake yasm"
@@ -16,14 +16,18 @@ maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
 license="GPL-2"
 homepage="http://avidemux.sourceforge.net/"
 distfiles="${SOURCEFORGE_SITE}/avidemux/avidemux/${version}/${pkgname}_${version}.tar.gz"
-checksum=769a8bc1bc8ca64038971d2d02f5973d95a3561370366be328ce6904a317e55b
+checksum=3f302ed6e011019ba20ec652090305317617483b74905f877e0e63b313ab629e
+
+case "$XBPS_TARGET_MACHINE" in
+	*-musl) broken="Internal compiler error in src/libavcodec/hevcdsp_template.c"
+esac
 
 do_build() {
-	bash bootStrap.bash --without-gtk --enable-qt5
+	MAKEFLAGS=${makejobs} \
+		bash bootStrap.bash --without-gtk
 }
 do_install() {
 	# Remove Windows stuff
-	rm -r install/usr/share/ADM6_addons/avsfilter
 	cp -aR install/usr ${DESTDIR}
 	ln -s avidemux3_qt5 ${DESTDIR}/usr/bin/avidemux
 	vman man/avidemux.1

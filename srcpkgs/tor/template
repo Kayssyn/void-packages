@@ -1,7 +1,7 @@
 # Template file for 'tor'
 pkgname=tor
-version=0.2.7.6
-revision=3
+version=0.2.8.9
+revision=1
 build_style=gnu-configure
 makedepends="zlib-devel libressl-devel libevent-devel libseccomp-devel"
 depends="ca-certificates torsocks"
@@ -12,9 +12,13 @@ make_dirs="/var/lib/tor 0700 tor tor"
 short_desc="Anonymity Online"
 maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="BSD"
-homepage="http://www.torproject.org/"
+homepage="https://www.torproject.org/"
 distfiles="https://www.torproject.org/dist/tor-$version.tar.gz"
-checksum=493a8679f904503048114aca6467faef56861206bab8283d858f37141d95105d
+checksum=3f5c273bb887be4aff11f4d99b9e2e52d293b81ff4f6302b730161ff16dc5316
+
+case "$XBPS_TARGET_MACHINE" in
+	aarch64*) configure_args="--disable-seccomp";;
+esac
 
 post_install() {
 	# Use our own default config file.

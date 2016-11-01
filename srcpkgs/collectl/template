@@ -1,6 +1,6 @@
 # Template file for 'collectl'
 pkgname=collectl
-version=4.0.4
+version=4.1.0
 revision=1
 noarch=yes
 conf_files="/etc/collectl.conf"
@@ -10,7 +10,7 @@ maintainer="Christian Neukirchen <chneukirchen@gmail.com>"
 license="GPL-2, Artistic"
 homepage="http://collectl.sourceforge.net/"
 distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}.src.tar.gz"
-checksum=03fc26ece3e9db6e410b708ada45fdec8c566ad82e67cb933c6ff8c005058ecf
+checksum=e50d2c6946b0ed243136f02c18a64b47402f64ee912cf2fef4c37f9f00d65770
 
 do_install() {
 	export DESTDIR

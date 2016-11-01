@@ -1,6 +1,6 @@
 # Template file for 'perl-Path-Tiny'
 pkgname=perl-Path-Tiny
-version=0.094
+version=0.098
 revision=1
 noarch=yes
 wrksrc="${pkgname/perl-/}-${version}"
@@ -13,4 +13,4 @@ maintainer="Christian Neukirchen <chneukirchen@gmail.com>"
 homepage="http://search.cpan.org/dist/Path-Tiny"
 license="Artistic, GPL-1"
 distfiles="${CPAN_SITE}/Object/DAGOLDEN/Path-Tiny-${version}.tar.gz"
-checksum=a06ac7dfe46b54f8919c279b9f6fc452c0d003940e3d3fda043c2b7f0f87b4cd
+checksum=68f95c21fba6b03039e3dd8831d18feb701e537ff9764f07ca93e08aa8aa6f72

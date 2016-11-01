@@ -1,12 +1,11 @@
 # Template file for 'python-stevedore'
 pkgname=python-stevedore
-version=1.15.0
+version=1.18.0
 revision=1
 noarch=yes
 wrksrc="stevedore-${version}"
 build_style=python-module
-python_versions="2.7 3.4"
-hostmakedepends="python-setuptools python3.4-setuptools python-pbr python3.4-pbr"
+hostmakedepends="python-setuptools python3-setuptools python-pbr python3-pbr"
 depends="python-six"
 pycompile_module="stevedore"
 short_desc="Manage dynamic plugins for Python2 applications"
@@ -14,20 +13,26 @@ maintainer="Alessio Sergi <al3hex@gmail.com>"
 homepage="https://git.openstack.org/cgit/openstack/stevedore"
 license="Apache-2.0"
 distfiles="${PYPI_SITE}/s/stevedore/stevedore-${version}.tar.gz"
-checksum=b048b7976754ad55d7cbc7407b17cbfd945dbb4c5ecc333d3c2142d506fc90e1
+checksum=992f5d3c77a17ac283dc62626ff7bb24042e9c54bec2977395b45539f5d2aeb9
 
 pre_build() {
 	# remove dependency on pbr; it's not a runtime dependency
 	sed -i '/pbr/d' requirements.txt
 }
 
+python3-stevedore_package() {
+	noarch=yes
+	depends="python3-six"
+	pycompile_module="stevedore"
+	replaces="python3.4-stevedore>=0"
+	short_desc="${short_desc/Python2/Python3}"
+	pkg_install() {
+		vmove usr/lib/python3*
+	}
+}
 python3.4-stevedore_package() {
 	noarch=yes
-	depends="python3.4-six"
-	pycompile_version="3.4"
-	pycompile_module="stevedore"
-	short_desc="${short_desc/Python2/Python3.4}"
-	pkg_install() {
-		vmove usr/lib/python3.4
-	}
+	build_style=meta
+	short_desc="${short_desc/Python2/Python3.4} (transitional dummy package)"
+	depends="python3-stevedore>=${version}_${revision}"
 }

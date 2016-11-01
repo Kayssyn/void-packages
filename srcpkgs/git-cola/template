@@ -1,8 +1,8 @@
 # Template file for 'git-cola'
 pkgname=git-cola
-version=2.6
+version=2.8
 revision=1
-build_style=python-module
+build_style=python2-module
 noarch=yes
 hostmakedepends="python"
 depends="git-perl python-PyQt4"
@@ -12,4 +12,4 @@ license="GPL-2"
 homepage="https://github.com/$pkgname/$pkgname"
 distfiles="$homepage/archive/v$version.tar.gz"
 pycompile_dirs="usr/share/git-cola/lib/cola"
-checksum=ed566548793b4905005528d5e612c41bea5b5f7602649c0eec0787fbb0ab9cd2
+checksum=9962098bb73c2c13ea32ded01821e447e0c9fbece3d213eaccf6bb02413ccea5

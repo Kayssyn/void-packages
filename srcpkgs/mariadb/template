@@ -1,6 +1,6 @@
 # Template file for 'mariadb'
 pkgname=mariadb
-version=10.1.14
+version=10.1.18
 revision=1
 build_style=cmake
 configure_args="-DMYSQL_DATADIR=/var/lib/mysql
@@ -31,13 +31,8 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 homepage="http://mariadb.org/"
 license="GPL-2"
 distfiles="https://downloads.$pkgname.org/f/$pkgname-$version/source/$pkgname-$version.tar.gz"
-checksum=18e71974a059a268a3f28281599607344d548714ade823d575576121f76ada13
+checksum=d7336907e9ff44496d6453f92526b25bd253638a64a051ca879f953499873b73
 CFLAGS="-w"
-
-case "$XBPS_TARGET_MACHINE" in
-armv*)
-	configure_args+=" -DHAVE_FALLOC_PUNCH_HOLE_AND_KEEP_SIZE_EXITCODE=0" ;;
-esac
 
 pre_configure() {
 	# We need some host binaries before starting cross compilation.

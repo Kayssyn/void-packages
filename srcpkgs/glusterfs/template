@@ -1,6 +1,6 @@
 # Template file for 'glusterfs'
 pkgname=glusterfs
-version=3.8.0
+version=3.8.5
 revision=1
 build_style=gnu-configure
 configure_args="--disable-glupy --enable-crypt-xlator
@@ -17,7 +17,7 @@ maintainer="Juan RP <xtraeme@voidlinux.eu>"
 license="GPL-2, LGPL-3"
 homepage="http://www.gluster.org/"
 distfiles="http://download.gluster.org/pub/gluster/glusterfs/${version%.*}/${version}/${pkgname}-${version}.tar.gz"
-checksum=8a2d89a37bf7c99bc153826dbeaf2113a7e45c77bc6978a2850c9033ddd77511
+checksum=476527c7bc7403128d6cafe54b81bf4896cc6cd96505f42e85380f2588cc3846
 
 nocross=yes
 case "$XBPS_TARGET_MACHINE" in

@@ -1,7 +1,7 @@
 # Template file for 'mkinitcpio'
 pkgname=mkinitcpio
-version=19
-revision=2
+version=21
+revision=1
 noarch=yes
 build_style=gnu-makefile
 depends="busybox-static bsdtar bash"
@@ -10,7 +10,7 @@ maintainer="Andrea Brancaleoni <miwaxe@gmail.com>"
 license="GPL-2"
 homepage="https://wiki.archlinux.org/index.php/Mkinitcpio"
 distfiles="https://sources.archlinux.org/other/$pkgname/$pkgname-$version.tar.gz"
-checksum=7170e7a3d1b9ed21b0961941a327886febe80e62e2dfee6b88359ed72d0da620
+checksum=a841a9c167076b52043c968a7ba74cc44f4d1d8ca06ad794ccf4b70e2c667248
 
 conf_files="/etc/mkinitcpio.conf"
 

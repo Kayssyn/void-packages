@@ -1,33 +1,37 @@
 # Template file for 'python-Bottleneck'
 pkgname=python-Bottleneck
-version=1.1.0
+version=1.2.0
 revision=1
 wrksrc="Bottleneck-${version}"
 build_style=python-module
-python_versions="2.7 3.4"
-hostmakedepends="python-setuptools python3.4-setuptools"
-makedepends="python-devel python3.4-devel python-numpy python3.4-numpy"
+hostmakedepends="python-setuptools python3-setuptools"
+makedepends="python-devel python3-devel python-numpy python3-numpy"
 depends="python-numpy"
 pycompile_module="bottleneck"
-short_desc="Fast NumPy array functions written in Cython (Python2)"
+short_desc="Fast NumPy array functions written in C (Python2)"
 maintainer="Alessio Sergi <al3hex@gmail.com>"
 homepage="http://berkeleyanalytics.com/bottleneck/"
 license="2-clause-BSD"
 distfiles="${PYPI_SITE}/B/Bottleneck/Bottleneck-${version}.tar.gz"
-checksum=c3a52b843509bd8d9ef240f0ce2f3e57d05277f85c3239196e3d8979fe5d33de
+checksum=3bec84564a4adbe97c24e875749b949a19cfba4e4588be495cc441db7c6b05e8
 
 post_install() {
 	rm -f ${DESTDIR}/usr/lib/python*/site-packages/bottleneck/LICENSE
 	vlicense bottleneck/LICENSE
 }
 
-python3.4-Bottleneck_package() {
-	depends="python3.4-numpy"
-	pycompile_version="3.4"
+python3-Bottleneck_package() {
+	replaces="python3.4-Bottleneck>=0"
+	depends="python3-numpy"
 	pycompile_module="bottleneck"
-	short_desc="${short_desc/Python2/Python3.4}"
+	short_desc="${short_desc/Python2/Python3}"
 	pkg_install() {
-		vmove usr/lib/python3.4
+		vmove usr/lib/python3*
 		vlicense bottleneck/LICENSE
 	}
+}
+python3.4-Bottleneck_package() {
+	build_style=meta
+	short_desc="${short_desc/Python2/Python3.4} (transitional dummy package)"
+	depends="python3-Bottleneck>=${version}_${revision}"
 }

@@ -1,8 +1,8 @@
 # Template file for 'salt'
 pkgname=salt
-version=2016.3.1
+version=2016.3.3
 revision=1
-build_style=python-module
+build_style=python2-module
 noarch=yes
 pycompile_module="salt"
 conf_files="/etc/salt/*"
@@ -15,7 +15,7 @@ maintainer="Toyam Cox <Vaelatern@gmail.com>"
 license="Apache-2.0"
 homepage="http://saltstack.org/"
 distfiles="$PYPI_SITE/s/salt/salt-${version}.tar.gz"
-checksum=e6bdba4693116430c2af57497eb63399e3a139ac0a7016fa0870b49fbe987f75
+checksum=5906038594f1b9b3ac41714774fbd78f0af80d2f3ffe1c1bf20308032d7d52b6
 
 post_install() {
 	vmkdir /etc/salt 0750

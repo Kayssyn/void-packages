@@ -1,8 +1,8 @@
 # Template file for 'duplicity'
 pkgname=duplicity
-version=0.7.07.1
-revision=2
-build_style="python-module"
+version=0.7.10
+revision=1
+build_style=python2-module
 hostmakedepends="python-setuptools"
 makedepends="python-devel librsync-devel"
 depends="python-lockfile"
@@ -11,8 +11,8 @@ short_desc="Encrypted bandwidth-efficient backup using the rsync algorithm"
 homepage="http://duplicity.nongnu.org/"
 license="GPL-2"
 maintainer="Christian Neukirchen <chneukirchen@gmail.com>"
-distfiles="http://code.launchpad.net/duplicity/${version%.*.*}-series/${version}/+download/duplicity-${version}.tar.gz"
-checksum=594c6d0e723e56f8a7114d57811c613622d535cafdef4a3643a4d4c89c1904f8
+distfiles="http://code.launchpad.net/duplicity/${version%.*}-series/${version}/+download/duplicity-${version}.tar.gz"
+checksum=485fef15526d163c061e00ec08de216cf7d652e67d41de5dc3bed9fb42214842
 
 post_extract() {
 	chmod 0644 bin/*.1
